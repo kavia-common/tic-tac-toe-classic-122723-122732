@@ -5,6 +5,15 @@
     <!-- Onboarding -->
     <string name="onboarding_text">Play the classic Tic Tac Toe game in local two-player mode. Take turns placing X and O on the 3x3 grid. First to align three wins!</string>
     <string name="start_game">Start Game</string>
+    <string name="choose_icons">Choose your icons</string>
+    <string name="player1">Player 1</string>
+    <string name="player2">Player 2</string>
+    <string name="piece_king">King</string>
+    <string name="piece_queen">Queen</string>
+    <string name="piece_rook">Rook</string>
+    <string name="piece_bishop">Bishop</string>
+    <string name="piece_knight">Knight</string>
+    <string name="piece_pawn">Pawn</string>
 
     <!-- Main screen -->
     <string name="initial_score">Score  X: 0  |  O: 0</string>

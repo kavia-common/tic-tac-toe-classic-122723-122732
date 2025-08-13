@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+# Simple wrapper to delegate Gradle commands to the Android app's root wrapper
+set -e
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$SCRIPT_DIR/.."
+exec ./gradlew "$@"

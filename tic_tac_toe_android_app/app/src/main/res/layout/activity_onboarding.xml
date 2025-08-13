@@ -1,41 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/onboardingRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/secondary"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:background="@color/secondary">
 
-    <TextView
-        android:id="@+id/appTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textColor="@color/primary"
-        android:textSize="28sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/introText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:gravity="center"
-        android:text="@string/onboarding_text"
-        android:textColor="#444444"
-        android:textSize="16sp" />
-
-    <Button
-        android:id="@+id/startGameButton"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/primary_button_bg"
-        android:padding="14dp"
-        android:text="@string/start_game"
-        android:textAllCaps="false"
-        android:textColor="@color/secondary"
-        android:textSize="16sp" />
-</LinearLayout>
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/appTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="@color/primary"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/introText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="@string/onboarding_text"
+            android:textColor="#444444"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/selectIconsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/choose_icons"
+            android:textColor="#222222"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Player 1 selection (white chess pieces) -->
+        <TextView
+            android:id="@+id/player1Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="@string/player1"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupP1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/p1_king"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_bg"
+                android:padding="12dp"
+                android:text="♔ King"
+                android:textSize="18sp"
+                android:tag="♔"
+                android:layout_marginBottom="8dp"
+                android:textColor="#111111" />
+
+            <RadioButton
+                android:id="@+id/p1_queen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_bg"
+                android:padding="12dp"
+                android:text="♕ Queen"
+                android:textSize="18sp"
+                android:tag="♕"
+                android:layout_marginBottom="8dp"
+                android:textColor="#111111" />
+
+            <RadioButton
+                android:id="@+id/p1_rook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_bg"
+                android:padding="12dp"
+                android:text="♖ Rook"
+                android:textSize="18sp"
+                android:tag="♖"
+                android:layout_marginBottom="8dp"
+                android:textColor="#111111" />
+
+            <RadioButton
+                android:id="@+id/p1_bishop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_bg"
+                android:padding="12dp"
+                android:text="♗ Bishop"
+                android:textSize="18sp"
+                android:tag="♗"
+                android:layout_marginBottom="8dp"
+                android:textColor="#111111" />
+
+            <RadioButton
+                android:id="@+id/p1_knight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_bg"
+                android:padding="12dp"
+                android:text="♘ Knight"
+                android:textSize="18sp"
+                android:tag="♘"
+                android:layout_marginBottom="8dp"
+                android:textColor="#111111" />
+
+            <RadioButton
+                android:id="@+id/p1_pawn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_bg"
+                android:padding="12dp"
+                android:text="♙ Pawn"
+                android:textSize="18sp"
+                android:tag="♙"
+                android:textColor="#111111" />
+        </RadioGroup>
+
+        <!-- Player 2 selection (black chess pieces) -->
+        <TextView
+            android:id="@+id/player2Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/player2"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupP2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/p2_king"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_bg"
+                android:padding="12dp"
+                android:text="♚ King"
+                android:textSize="18sp"
+                android:tag="♚"
+                android:layout_marginBottom="8dp"
+                android:textColor="#111111" />
+
+            <RadioButton
+                android:id="@+id/p2_queen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_bg"
+                android:padding="12dp"
+                android:text="♛ Queen"
+                android:textSize="18sp"
+                android:tag="♛"
+                android:layout_marginBottom="8dp"
+                android:textColor="#111111" />
+
+            <RadioButton
+                android:id="@+id/p2_rook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_bg"
+                android:padding="12dp"
+                android:text="♜ Rook"
+                android:textSize="18sp"
+                android:tag="♜"
+                android:layout_marginBottom="8dp"
+                android:textColor="#111111" />
+
+            <RadioButton
+                android:id="@+id/p2_bishop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_bg"
+                android:padding="12dp"
+                android:text="♝ Bishop"
+                android:textSize="18sp"
+                android:tag="♝"
+                android:layout_marginBottom="8dp"
+                android:textColor="#111111" />
+
+            <RadioButton
+                android:id="@+id/p2_knight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_bg"
+                android:padding="12dp"
+                android:text="♞ Knight"
+                android:textSize="18sp"
+                android:tag="♞"
+                android:layout_marginBottom="8dp"
+                android:textColor="#111111" />
+
+            <RadioButton
+                android:id="@+id/p2_pawn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_bg"
+                android:padding="12dp"
+                android:text="♟ Pawn"
+                android:textSize="18sp"
+                android:tag="♟"
+                android:textColor="#111111" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/startGameButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/primary_button_bg"
+            android:padding="14dp"
+            android:text="@string/start_game"
+            android:textAllCaps="false"
+            android:textColor="@color/secondary"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</ScrollView>

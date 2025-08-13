@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/secondary"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Scoreboard -->
+    <TextView
+        android:id="@+id/scoreboardText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="@string/initial_score"
+        android:textAlignment="center"
+        android:textColor="#222222"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Status text -->
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:padding="8dp"
+        android:text="@string/status_player_x_turn"
+        android:textAlignment="center"
+        android:textColor="#555555"
+        android:textSize="16sp" />
+
+    <!-- Board container -->
+    <LinearLayout
+        android:id="@+id/boardContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:weightSum="3">
+
+        <!-- Row 0 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/cell_0_0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/cell_bg"
+                android:text=""
+                android:textAllCaps="false"
+                android:textColor="@color/primary"
+                android:textSize="28sp" />
+
+            <Button
+                android:id="@+id/cell_0_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/cell_bg"
+                android:text=""
+                android:textAllCaps="false"
+                android:textColor="@color/primary"
+                android:textSize="28sp" />
+
+            <Button
+                android:id="@+id/cell_0_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/cell_bg"
+                android:text=""
+                android:textAllCaps="false"
+                android:textColor="@color/primary"
+                android:textSize="28sp" />
+        </LinearLayout>
+
+        <!-- Row 1 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/cell_1_0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/cell_bg"
+                android:text=""
+                android:textAllCaps="false"
+                android:textColor="@color/primary"
+                android:textSize="28sp" />
+
+            <Button
+                android:id="@+id/cell_1_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/cell_bg"
+                android:text=""
+                android:textAllCaps="false"
+                android:textColor="@color/primary"
+                android:textSize="28sp" />
+
+            <Button
+                android:id="@+id/cell_1_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/cell_bg"
+                android:text=""
+                android:textAllCaps="false"
+                android:textColor="@color/primary"
+                android:textSize="28sp" />
+        </LinearLayout>
+
+        <!-- Row 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/cell_2_0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/cell_bg"
+                android:text=""
+                android:textAllCaps="false"
+                android:textColor="@color/primary"
+                android:textSize="28sp" />
+
+            <Button
+                android:id="@+id/cell_2_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/cell_bg"
+                android:text=""
+                android:textAllCaps="false"
+                android:textColor="@color/primary"
+                android:textSize="28sp" />
+
+            <Button
+                android:id="@+id/cell_2_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/cell_bg"
+                android:text=""
+                android:textAllCaps="false"
+                android:textColor="@color/primary"
+                android:textSize="28sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Reset button -->
+    <Button
+        android:id="@+id/resetButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/reset_button_bg"
+        android:padding="14dp"
+        android:text="@string/reset_board"
+        android:textAllCaps="false"
+        android:textColor="@color/secondary"
+        android:textSize="16sp" />
+</LinearLayout>

@@ -8,6 +8,9 @@ import android.widget.TextView
 /**
  * MainActivity renders the Tic Tac Toe board, manages local 2-player gameplay,
  * displays the scoreboard, and offers a reset option.
+ *
+ * It uses the selected chess piece icons from onboarding as the tokens
+ * for Player 1 (engine 'X') and Player 2 (engine 'O').
  */
 class MainActivity : Activity() {
 
@@ -18,6 +21,10 @@ class MainActivity : Activity() {
 
     private lateinit var cells: Array<Array<Button>>
     private lateinit var resetButton: Button
+
+    // Selected player icons (default fallbacks if onboarding didn't set them)
+    private var player1Icon: String = "X" // maps to engine 'X'
+    private var player2Icon: String = "O" // maps to engine 'O'
 
     // PUBLIC_INTERFACE
     /**
@@ -32,13 +39,11 @@ class MainActivity : Activity() {
         statusText = findViewById(getId("statusText"))
         resetButton = findViewById(getId("resetButton"))
 
-        cells = arrayOf(
-            arrayOf(findViewById(getId("cell_0_0")), findViewById(getId("cell_0_1")), findViewById(getId("cell_0_2"))),
-            arrayOf(findViewById(getId("cell_1_0")), findViewById(getId("cell_1_1")), findViewById(getId("cell_1_2"))),
-            arrayOf(findViewById(getId("cell_2_0")), findViewById(getId("cell_2_1")), findViewById(getId("cell_2_2")))
-        )
+        // Get player icons from onboarding (extras) first
+        intent.getStringExtra("player1Icon")?.let { player1Icon = it }
+        intent.getStringExtra("player2Icon")?.let { player2Icon = it }
 
-        // Restore state if available
+        // Restore state if available (both engine and chosen icons)
         if (savedInstanceState != null) {
             val state = HashMap<String, Any>()
             savedInstanceState.getString("board")?.let { state["board"] = it }
@@ -47,7 +52,16 @@ class MainActivity : Activity() {
             state["scoreX"] = savedInstanceState.getInt("scoreX", 0)
             state["scoreO"] = savedInstanceState.getInt("scoreO", 0)
             engine.fromState(state)
+
+            savedInstanceState.getString("p1Icon")?.let { player1Icon = it }
+            savedInstanceState.getString("p2Icon")?.let { player2Icon = it }
         }
+
+        cells = arrayOf(
+            arrayOf(findViewById(getId("cell_0_0")), findViewById(getId("cell_0_1")), findViewById(getId("cell_0_2"))),
+            arrayOf(findViewById(getId("cell_1_0")), findViewById(getId("cell_1_1")), findViewById(getId("cell_1_2"))),
+            arrayOf(findViewById(getId("cell_2_0")), findViewById(getId("cell_2_1")), findViewById(getId("cell_2_2")))
+        )
 
         wireUpBoard()
         updateUIFromEngine()
@@ -71,36 +85,43 @@ class MainActivity : Activity() {
     }
 
     private fun updateUIFromEngine() {
-        // Update board cells
+        // Update board cells with selected icons
         for (r in 0..2) {
             for (c in 0..2) {
                 val value = engine.getCell(r, c)
-                cells[r][c].text = if (value == ' ') "" else value.toString()
+                val display = when (value) {
+                    'X' -> player1Icon
+                    'O' -> player2Icon
+                    else -> ""
+                }
+                cells[r][c].text = display
                 cells[r][c].isEnabled = value == ' ' && !engine.isGameOver
             }
         }
 
-        // Update scoreboard
-        scoreboardText.text = "Score  X: ${engine.scoreX}  |  O: ${engine.scoreO}"
+        // Update scoreboard (show icons instead of X/O)
+        scoreboardText.text = "Score  $player1Icon: ${engine.scoreX}  |  $player2Icon: ${engine.scoreO}"
 
-        // Update status
+        // Update status with icons
         val winner = engine.getWinner()
         statusText.text = when (winner) {
-            'X' -> getStringByName("status_x_wins")
-            'O' -> getStringByName("status_o_wins")
-            'D' -> getStringByName("status_draw")
-            else -> if (engine.currentPlayer == 'X') getStringByName("status_player_x_turn") else getStringByName("status_player_o_turn")
+            'X' -> "$player1Icon wins!"
+            'O' -> "$player2Icon wins!"
+            'D' -> "Draw game."
+            else -> {
+                val turnIcon = if (engine.currentPlayer == 'X') player1Icon else player2Icon
+                "Player $turnIcon turn"
+            }
         }
     }
 
     // Helpers to resolve resources dynamically to avoid compile-time R references
     private fun getLayout(name: String): Int = resources.getIdentifier(name, "layout", packageName)
     private fun getId(name: String): Int = resources.getIdentifier(name, "id", packageName)
-    private fun getStringByName(name: String): String = resources.getString(resources.getIdentifier(name, "string", packageName))
 
     // PUBLIC_INTERFACE
     /**
-     * Persist game state across configuration changes (e.g., rotation).
+     * Persist game state and chosen icons across configuration changes (e.g., rotation).
      */
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -110,5 +131,7 @@ class MainActivity : Activity() {
         outState.putBoolean("isGameOver", state["isGameOver"] as Boolean)
         outState.putInt("scoreX", state["scoreX"] as Int)
         outState.putInt("scoreO", state["scoreO"] as Int)
+        outState.putString("p1Icon", player1Icon)
+        outState.putString("p2Icon", player2Icon)
     }
 }
