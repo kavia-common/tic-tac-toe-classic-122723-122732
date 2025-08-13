@@ -1,0 +1,4 @@
+{
+    "command": "./gradlew dependencies",
+    "working_directory": "/home/kavia/workspace/code-generation/tic-tac-toe-classic-122723-122732/tic_tac_toe_android_app"
+}
