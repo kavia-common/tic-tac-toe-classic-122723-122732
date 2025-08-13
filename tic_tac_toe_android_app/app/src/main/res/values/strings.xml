@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tic Tac Toe</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_text">Play the classic Tic Tac Toe game in local two-player mode. Take turns placing X and O on the 3x3 grid. First to align three wins!</string>
+    <string name="start_game">Start Game</string>
+
+    <!-- Main screen -->
+    <string name="initial_score">Score  X: 0  |  O: 0</string>
+    <string name="status_player_x_turn">Player X turn</string>
+    <string name="status_player_o_turn">Player O turn</string>
+    <string name="status_x_wins">Player X wins!</string>
+    <string name="status_o_wins">Player O wins!</string>
+    <string name="status_draw">Draw game.</string>
+    <string name="reset_board">Reset Board</string>
+</resources>
