@@ -19,3 +19,26 @@ To run the application, first install it on a connected Android device using:
 ```
 
 Then search for "Sample Declarative Gradle Android App" and launch app to see a hello world message.
+
+## AI Trash Talk Configuration
+
+This app can display a playful one-liner after every move by calling OpenAI.
+
+How to provide your API key (use any one of the following):
+1) Environment variable (recommended for CI/dev):
+   - Set OPENAI_API_KEY in the environment where the app runs/builds.
+   - Example: export OPENAI_API_KEY="sk-***"
+2) AndroidManifest meta-data:
+   - The manifest includes a meta-data key OPENAI_API_KEY pointing to @string/openai_api_key.
+   - Put the key in app/src/main/res/values/strings.xml as:
+     <string name="openai_api_key">sk-***</string>
+   - Note: For production, avoid embedding secrets directly in the binary.
+3) BuildConfig field:
+   - If you add a BuildConfig field named OPENAI_API_KEY, the app will also try to read it via reflection.
+
+Order of resolution:
+BuildConfig.OPENAI_API_KEY -> Manifest meta-data OPENAI_API_KEY -> environment variable OPENAI_API_KEY.
+If no key is found, the app shows a friendly fallback line.
+
+Permissions:
+- INTERNET permission is declared to allow calling OpenAI.

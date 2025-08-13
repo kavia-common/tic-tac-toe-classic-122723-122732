@@ -23,4 +23,6 @@
     <string name="status_o_wins">Player O wins!</string>
     <string name="status_draw">Draw game.</string>
     <string name="reset_board">Reset Board</string>
+    <!-- Optional: inject OPENAI_API_KEY via AndroidManifest meta-data using this string. Leave empty to rely on env var. -->
+    <string name="openai_api_key"></string>
 </resources>

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 
 /**
  * MainActivity renders the Tic Tac Toe board, manages local 2-player gameplay,
@@ -21,10 +22,14 @@ class MainActivity : Activity() {
 
     private lateinit var cells: Array<Array<Button>>
     private lateinit var resetButton: Button
+    private lateinit var trashTalkText: TextView
 
     // Selected player icons (default fallbacks if onboarding didn't set them)
     private var player1Icon: String = "X" // maps to engine 'X'
     private var player2Icon: String = "O" // maps to engine 'O'
+
+    // OpenAI trash talker
+    private lateinit var trashTalker: OpenAiTrashTalker
 
     // PUBLIC_INTERFACE
     /**
@@ -38,6 +43,8 @@ class MainActivity : Activity() {
         scoreboardText = findViewById(getId("scoreboardText"))
         statusText = findViewById(getId("statusText"))
         resetButton = findViewById(getId("resetButton"))
+        trashTalkText = findViewById(getId("trashTalkText"))
+        trashTalker = OpenAiTrashTalker(applicationContext)
 
         // Get player icons from onboarding (extras) first
         intent.getStringExtra("player1Icon")?.let { player1Icon = it }
@@ -69,6 +76,7 @@ class MainActivity : Activity() {
         resetButton.setOnClickListener {
             engine.resetBoard()
             updateUIFromEngine()
+            trashTalkText.text = ""
         }
     }
 
@@ -78,6 +86,8 @@ class MainActivity : Activity() {
                 cells[r][c].setOnClickListener {
                     if (engine.makeMove(r, c)) {
                         updateUIFromEngine()
+                        // After every valid move, generate playful trash talk
+                        requestTrashTalk(r, c)
                     }
                 }
             }
@@ -113,6 +123,62 @@ class MainActivity : Activity() {
                 "Player $turnIcon turn"
             }
         }
+    }
+
+    /**
+     * Build a small ASCII representation of the board for the prompt.
+     */
+    private fun buildBoardAscii(): String {
+        val sb = StringBuilder()
+        for (r in 0..2) {
+            for (c in 0..2) {
+                val ch = engine.getCell(r, c)
+                val shown = when (ch) {
+                    'X' -> player1Icon
+                    'O' -> player2Icon
+                    else -> "·"
+                }
+                sb.append(shown)
+                if (c < 2) sb.append(" | ")
+            }
+            if (r < 2) sb.append("\n---------\n")
+        }
+        return sb.toString()
+    }
+
+    /**
+     * Trigger a background fetch to OpenAI to get a playful trash talk message and show it in a Toast.
+     */
+    private fun requestTrashTalk(row: Int, col: Int) {
+        val justPlayedChar = engine.getCell(row, col)
+        val justPlayedIcon = when (justPlayedChar) {
+            'X' -> player1Icon
+            'O' -> player2Icon
+            else -> "?"
+        }
+        val isOver = engine.isGameOver
+        val winner = engine.getWinner()
+        val nextIcon = if (!isOver) {
+            if (engine.currentPlayer == 'X') player1Icon else player2Icon
+        } else ""
+
+        val boardAscii = buildBoardAscii()
+
+        Thread {
+            val line = trashTalker.generateTrashTalk(
+                boardAscii = boardAscii,
+                row = row,
+                col = col,
+                justPlayedIcon = justPlayedIcon,
+                nextPlayerIcon = nextIcon,
+                isGameOver = isOver,
+                winnerChar = winner
+            )
+            runOnUiThread {
+                trashTalkText.text = line
+                Toast.makeText(this, line, Toast.LENGTH_SHORT).show()
+            }
+        }.start()
     }
 
     // Helpers to resolve resources dynamically to avoid compile-time R references
